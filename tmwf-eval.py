@@ -311,6 +311,9 @@ class DataGenerator(object):
                     tlen = len(data['data'][k])
                     x_dire = data['data'][k]
                     if self.timestamp:
+                        
+                        print("TIMESTAMP")
+
                         x_time = data['time'][k]
                         max_time = x_time[np.flatnonzero(x_time)[-1]]
                         for l, t in enumerate(x_time):

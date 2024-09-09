@@ -415,8 +415,9 @@ def match_len(data):
             data['data'][i] = data['data'][i][:5120]
             data['time'][i] = data['time'][i][:5120]
         else:
-            data['data'][i] = np.concatenate(data['data'][i], np.asarray([0.0] * (5120 - len(data['data'][i]))))
-            data['time'][i] = np.concatenate(data['time'][i], np.asarray([0.0] * (5120 - len(data['data'][i]))))
+            zeroes = np.asarray([0.0] * (5120 - len(data['data'][i])))
+            data['data'][i] = np.concatenate((data['data'][i], zeroes))
+            data['time'][i] = np.concatenate((data['time'][i], zeroes))
 
     return data
 

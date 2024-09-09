@@ -302,8 +302,8 @@ class DataGenerator(object):
         if total % self.batch_size != 0:
             imax = imax + 1
 
-        print(len(data['data']))
-        print(len(data['data'][0]))
+        #print(len(data['data']))
+        #print(len(data['data'][0]))
 
         while True:
             for i in range(imax):
@@ -313,6 +313,8 @@ class DataGenerator(object):
                     
                     print(len(data['data']))
                     print(len(data['data'][0]))
+                    print(len(data['data'][39134]))
+                    print(data['data'][39134])
                     print(k)
 
                     tlen = len(data['data'][k])

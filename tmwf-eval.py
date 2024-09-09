@@ -364,6 +364,10 @@ def train_test(backbone, tab, page_dim, max_page, timestamp, train_ret, test_ret
     test_bc = test_total // batch_size
     if test_bc * batch_size != test_total:
         test_bc = test_bc + 1
+
+    for xb in train_gen:
+        print(xb.shape)
+        break
         
     for epoch in range(50):
         model.train()

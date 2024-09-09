@@ -327,6 +327,9 @@ class DataGenerator(object):
                         else:
                             x.append(x_dire.tolist() + [0] * (max_len - tlen))
                     y.append(data['label'][k])
+                
+                print(len(x))
+
                 yield np.array(x), np.array(y)
 
 def train_test(backbone, tab, page_dim, max_page, timestamp, train_ret, test_ret):
@@ -337,8 +340,6 @@ def train_test(backbone, tab, page_dim, max_page, timestamp, train_ret, test_ret
     indices = np.arange(train_total)
     np.random.shuffle(indices)
     train_gen = DataGenerator(batch_size, page_dim, max_page, timestamp).generate(train_ret, indices)
-
-    print(train_gen.shape)
 
     test_total = len(test_ret['data'])
     indices = np.arange(test_total)
@@ -435,9 +436,6 @@ with open('train_ret', 'rb') as f:
     
 with open('test_ret', 'rb') as f:
     test_ret = pickle.load(f)
-
-train_ret = match_len(train_ret)
-test_ret = match_len(test_ret)
 
 
 train_test(backbone='DFNet', tab=3, page_dim=page_len, max_page=max_page, timestamp=True, train_ret=train_ret, test_ret=test_ret)

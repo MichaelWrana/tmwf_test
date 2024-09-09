@@ -352,7 +352,8 @@ def train_test(backbone, tab, page_dim, max_page, timestamp, train_ret, test_ret
         model = TMWF_DFNet(embed_dim=256, nhead=8, dim_feedforward=256 * 4, num_encoder_layers=2,
                            num_decoder_layers=2, max_len=121, num_queries=max_page, cls=cls_num,
                            dropout=0.1).cuda()
-        
+    
+    print(train_gen.shape)
     
     opt = torch.optim.Adam(model.parameters(), lr=lr)
     criteron = torch.nn.CrossEntropyLoss()

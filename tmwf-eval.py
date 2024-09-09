@@ -336,7 +336,7 @@ class DataGenerator(object):
                 
                 for smth in x:
                     print(len(smth[0]))
-                    print(len[smth[1]])
+                    print(len(smth[1]))
 
                 yield np.array(x), np.array(y)
 

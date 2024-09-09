@@ -50,13 +50,6 @@ def storage():
     with open('test_ret', 'wb') as f:
         pickle.dump(test_ret, f)
 
-
-with open('train_ret', 'rb') as f:
-    train_ret = pickle.load(f)
-    
-with open('test_ret', 'rb') as f:
-    test_ret = pickle.load(f)
-
 class Transformer(nn.Module):
 
     def __init__(self, embed_dim, nhead, num_encoder_layers, num_decoder_layers, dim_feedforward, dropout):
@@ -335,7 +328,7 @@ class DataGenerator(object):
                     y.append(data['label'][k])
                 yield np.array(x), np.array(y)
 
-def train_test(backbone, tab, page_dim, max_page, timestamp):
+def train_test(backbone, tab, page_dim, max_page, timestamp, train_ret, test_ret):
     np.random.seed(2023)
     torch.manual_seed(2023)
 
@@ -424,4 +417,10 @@ batch_size = 80
 lr = 0.0005
 
 
-train_test(backbone='DFNet', tab=3, page_dim=page_len, max_page=max_page, timestamp=True)
+with open('train_ret', 'rb') as f:
+    train_ret = pickle.load(f)
+    
+with open('test_ret', 'rb') as f:
+    test_ret = pickle.load(f)
+
+train_test(backbone='DFNet', tab=3, page_dim=page_len, max_page=max_page, timestamp=True, train_ret=train_ret, test_ret=test_ret)

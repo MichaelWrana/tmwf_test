@@ -261,6 +261,35 @@ class DFNet(nn.Module):
         x = self.block4_dropout(x)
         return x.transpose(1, 2)
 
+class BAPM_CNN(nn.Module):
+
+    def __init__(self, filters, kernels, pools, dropout):
+        super(BAPM_CNN, self).__init__()
+        self.cnn_layer = nn.Sequential(
+            nn.Conv1d(1, filters[0], kernel_size=kernels[0]),
+            nn.ReLU(),
+            nn.BatchNorm1d(filters[0]),
+            nn.MaxPool1d(kernel_size=pools[0], padding=2),
+            nn.Dropout(dropout),
+            nn.Conv1d(filters[0], filters[1], kernel_size=kernels[1]),
+            nn.ReLU(),
+            nn.BatchNorm1d(filters[1]),
+            nn.MaxPool1d(kernel_size=pools[1], padding=2),
+            nn.Dropout(dropout),
+            nn.Conv1d(filters[1], filters[2], kernel_size=kernels[2]),
+            nn.ReLU(),
+            nn.BatchNorm1d(filters[2]),
+            nn.MaxPool1d(kernel_size=pools[2], padding=2),
+            nn.Dropout(dropout),
+        )
+
+    def forward(self, input):
+        if len(input.shape) == 2:
+            x = input.unsqueeze(1)
+        else:
+            x = input
+        return self.cnn_layer(x).transpose(1, 2)
+
 class TMWF_noDF(nn.Module):
 
     def __init__(self, embed_dim, nhead, dim_feedforward, num_encoder_layers, num_decoder_layers, max_len, num_queries,
@@ -286,6 +315,7 @@ class TMWF_noDF(nn.Module):
         # return logits[:,0],logits[:,1]
 
         return logits
+
 
 
 class TMWF_DFNet(nn.Module):

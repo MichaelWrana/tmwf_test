@@ -364,10 +364,6 @@ def train_test(backbone, tab, page_dim, max_page, timestamp, train_ret, test_ret
     test_bc = test_total // batch_size
     if test_bc * batch_size != test_total:
         test_bc = test_bc + 1
-
-    for xb in train_gen:
-        print(xb.shape)
-        break
         
     for epoch in range(50):
         model.train()
@@ -440,5 +436,7 @@ with open('train_ret', 'rb') as f:
 with open('test_ret', 'rb') as f:
     test_ret = pickle.load(f)
 
+
+print(train_ret['label'][0])
 
 train_test(backbone='DFNet', tab=3, page_dim=page_len, max_page=max_page, timestamp=False, train_ret=train_ret, test_ret=test_ret)

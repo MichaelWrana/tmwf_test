@@ -331,6 +331,8 @@ class DataGenerator(object):
                 
                 for smth in x:
                     print(len(smth))
+                    print(len(smth['data']))
+                    print(len(smth['time']))
 
                 yield np.array(x), np.array(y)
 

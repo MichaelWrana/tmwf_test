@@ -310,7 +310,9 @@ class DataGenerator(object):
                 x = []
                 y = []
                 for j, k in enumerate(indices[i * self.batch_size:(i + 1) * self.batch_size]):
-
+                    
+                    print(len(data['data']))
+                    print(len(data['data'][0]))
                     print(k)
 
                     tlen = len(data['data'][k])

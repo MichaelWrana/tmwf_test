@@ -311,8 +311,6 @@ class DataGenerator(object):
                     tlen = len(data['data'][k])
                     x_dire = data['data'][k]
                     if self.timestamp:
-                        
-                        print("TIMESTAMP")
 
                         x_time = data['time'][k]
                         max_time = x_time[np.flatnonzero(x_time)[-1]]
@@ -331,7 +329,8 @@ class DataGenerator(object):
                             x.append(x_dire.tolist() + [0] * (max_len - tlen))
                     y.append(data['label'][k])
                 
-                print(len(x))
+                for smth in x:
+                    print(len(smth))
 
                 yield np.array(x), np.array(y)
 

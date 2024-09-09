@@ -330,13 +330,10 @@ class DataGenerator(object):
                     y.append(data['label'][k])
                 
                 for smth in x:
-                    if(len(smth[0]) == len(smth[1]) + 1):
-                        smth[0] = np.concatenate((smth[0], [0]))
-                    
-                
-                for smth in x:
                     print(len(smth[0]))
                     print(len(smth[1]))
+                    print(smth[0].dtype)
+                    print(smth[1].dtype)
 
                 yield np.array(x), np.array(y)
 

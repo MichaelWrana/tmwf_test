@@ -60,12 +60,6 @@ with open('train_ret', 'rb') as f:
 with open('test_ret', 'rb') as f:
     test_ret = pickle.load(f)
 
-
-import copy
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
 class Transformer(nn.Module):
 
     def __init__(self, embed_dim, nhead, num_encoder_layers, num_decoder_layers, dim_feedforward, dropout):
@@ -359,8 +353,6 @@ def train_test(backbone, tab, page_dim, max_page, timestamp):
     np.random.shuffle(indices)
     test_gen = DataGenerator(batch_size, page_dim, max_page, timestamp).generate(test_ret, indices)
     
-    
-    
     if backbone == 'BAPM-CNN':
         model = TMWF_noDF(embed_dim=128, nhead=8, dim_feedforward=512, num_encoder_layers=2,
                           num_decoder_layers=2, max_len=page_dim * max_page // (8 * 8 * 8), num_queries=max_page,
@@ -369,8 +361,7 @@ def train_test(backbone, tab, page_dim, max_page, timestamp):
         model = TMWF_DFNet(embed_dim=256, nhead=8, dim_feedforward=256 * 4, num_encoder_layers=2,
                            num_decoder_layers=2, max_len=121, num_queries=max_page, cls=cls_num,
                            dropout=0.1).cuda()
-    
-    '''
+        
     
     opt = torch.optim.Adam(model.parameters(), lr=lr)
     criteron = torch.nn.CrossEntropyLoss()
@@ -423,7 +414,6 @@ def train_test(backbone, tab, page_dim, max_page, timestamp):
         overall_advanced_precision(prob_matrix, one_hot_matrix, cls_num)
         overall_advanced_recall(prob_matrix, one_hot_matrix, cls_num)
         
-    '''
 
 
 cls_num = 51

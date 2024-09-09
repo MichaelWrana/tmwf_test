@@ -260,7 +260,32 @@ class DFNet(nn.Module):
         x = self.block4_pool(x)
         x = self.block4_dropout(x)
         return x.transpose(1, 2)
-    
+
+class TMWF_noDF(nn.Module):
+
+    def __init__(self, embed_dim, nhead, dim_feedforward, num_encoder_layers, num_decoder_layers, max_len, num_queries,
+                 cls, dropout):
+        super(TMWF_noDF, self).__init__()
+        print('TMWF_noDF')
+        self.cnn_layer = BAPM_CNN([32, 64, 128], [5, 5, 5], [8, 8, 8], dropout)
+        self.proj = nn.Sequential(
+            nn.Linear(embed_dim, embed_dim),
+            nn.LayerNorm(embed_dim)
+        )
+        self.trm = Transformer(embed_dim, nhead, num_encoder_layers, num_decoder_layers, dim_feedforward, dropout)
+        self.pos_embed = nn.Embedding(max_len, embed_dim).weight
+        self.query_embed = nn.Embedding(num_queries, embed_dim).weight
+        self.fc = nn.Linear(embed_dim, cls)
+
+    def forward(self, input):
+        x = self.cnn_layer(input)
+        feat = self.proj(x)
+        o = self.trm(feat, self.query_embed.unsqueeze(0), self.pos_embed.unsqueeze(0))
+        # o = self.trm(feat,self.query_embed,self.pos_embed)
+        logits = self.fc(o)
+        # return logits[:,0],logits[:,1]
+
+        return logits
 
 
 class TMWF_DFNet(nn.Module):
@@ -436,7 +461,4 @@ with open('train_ret', 'rb') as f:
 with open('test_ret', 'rb') as f:
     test_ret = pickle.load(f)
 
-
-print(train_ret['label'][0])
-
-train_test(backbone='DFNet', tab=3, page_dim=page_len, max_page=max_page, timestamp=False, train_ret=train_ret, test_ret=test_ret)
+train_test(backbone='BAPM-CNN', tab=3, page_dim=page_len, max_page=max_page, timestamp=False, train_ret=train_ret, test_ret=test_ret)

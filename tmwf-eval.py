@@ -303,12 +303,16 @@ class DataGenerator(object):
             imax = imax + 1
 
         print(len(data['data']))
+        print(len(data['data'][0]))
 
         while True:
             for i in range(imax):
                 x = []
                 y = []
                 for j, k in enumerate(indices[i * self.batch_size:(i + 1) * self.batch_size]):
+
+                    print(k)
+
                     tlen = len(data['data'][k])
                     x_dire = data['data'][k]
                     if self.timestamp:
@@ -335,9 +339,6 @@ def train_test(backbone, tab, page_dim, max_page, timestamp, train_ret, test_ret
     torch.manual_seed(2023)
 
     train_total = len(train_ret['data'])
-
-    print(train_total)
-
     indices = np.arange(train_total)
     np.random.shuffle(indices)
 

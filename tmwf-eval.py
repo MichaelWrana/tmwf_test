@@ -407,12 +407,16 @@ def train_test(backbone, tab, page_dim, max_page, timestamp):
         one_hot_matrix = np.concatenate(one_hot, axis=0)
 
         print('Epoch', epoch)
-        overall_basic_accuracy(prob_matrix, one_hot_matrix, cls_num)
-        overall_basic_precision(prob_matrix, one_hot_matrix, cls_num)
-        overall_basic_recall(prob_matrix, one_hot_matrix, cls_num)
-        overall_advanced_accuracy(prob_matrix, one_hot_matrix, cls_num)
-        overall_advanced_precision(prob_matrix, one_hot_matrix, cls_num)
-        overall_advanced_recall(prob_matrix, one_hot_matrix, cls_num)
+
+        print(prob_matrix)
+        print(one_hot_matrix)
+
+        #overall_basic_accuracy(prob_matrix, one_hot_matrix, cls_num)
+        #overall_basic_precision(prob_matrix, one_hot_matrix, cls_num)
+        #overall_basic_recall(prob_matrix, one_hot_matrix, cls_num)
+        #overall_advanced_accuracy(prob_matrix, one_hot_matrix, cls_num)
+        #overall_advanced_precision(prob_matrix, one_hot_matrix, cls_num)
+        #overall_advanced_recall(prob_matrix, one_hot_matrix, cls_num)
         
 
 

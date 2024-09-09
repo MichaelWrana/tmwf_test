@@ -307,7 +307,7 @@ class DataGenerator(object):
 
         count = 0
         for i in range(len(data['data'])):
-            if data['data'] is None:
+            if data['data'][i] is None:
                 count += 1
         
         print(count)

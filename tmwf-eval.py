@@ -321,7 +321,7 @@ class DataGenerator(object):
                             x.append([x_dire.tolist()[:max_len], x_time.tolist()[:max_len]])
                         else:
                             x.append(
-                                [x_dire.tolist() + [0] * (max_len - tlen - 1), x_time.tolist() + [0] * (max_len - tlen - 1)])
+                                [x_dire.tolist() + [0] * (max_len - tlen), x_time.tolist() + [0] * (max_len - tlen)])
                     else:
                         if tlen >= max_len:
                             x.append(x_dire.tolist()[:max_len])
@@ -330,9 +330,13 @@ class DataGenerator(object):
                     y.append(data['label'][k])
                 
                 for smth in x:
-                    print(len(smth))
+                    if(len(smth[0]) == len(smth[1]) + 1):
+                        smth[0] = np.concatenate((smth[0], [0]))
+                    
+                
+                for smth in x:
                     print(len(smth[0]))
-                    print(len(smth[1]))
+                    print(len[smth[1]])
 
                 yield np.array(x), np.array(y)
 

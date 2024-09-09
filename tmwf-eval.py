@@ -302,27 +302,11 @@ class DataGenerator(object):
         if total % self.batch_size != 0:
             imax = imax + 1
 
-        #print(len(data['data']))
-        #print(len(data['data'][0]))
-
-        count = 0
-        for i in range(len(data['data'])):
-            if data['data'][i] is None:
-                count += 1
-        
-        print(count)
-
         while True:
             for i in range(imax):
                 x = []
                 y = []
                 for j, k in enumerate(indices[i * self.batch_size:(i + 1) * self.batch_size]):
-                    
-                    print(len(data['data']))
-                    print(len(data['data'][0]))
-                    print(data['data'][39134])
-                    print(len(data['data'][39134]))
-                    print(k)
 
                     tlen = len(data['data'][k])
                     x_dire = data['data'][k]

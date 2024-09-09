@@ -338,6 +338,8 @@ def train_test(backbone, tab, page_dim, max_page, timestamp, train_ret, test_ret
     np.random.shuffle(indices)
     train_gen = DataGenerator(batch_size, page_dim, max_page, timestamp).generate(train_ret, indices)
 
+    print(train_gen.shape)
+
     test_total = len(test_ret['data'])
     indices = np.arange(test_total)
     np.random.shuffle(indices)

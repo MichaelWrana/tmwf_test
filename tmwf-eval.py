@@ -302,6 +302,8 @@ class DataGenerator(object):
         if total % self.batch_size != 0:
             imax = imax + 1
 
+        print(len(data['data']))
+
         while True:
             for i in range(imax):
                 x = []
@@ -333,6 +335,9 @@ def train_test(backbone, tab, page_dim, max_page, timestamp, train_ret, test_ret
     torch.manual_seed(2023)
 
     train_total = len(train_ret['data'])
+
+    print(train_total)
+
     indices = np.arange(train_total)
     np.random.shuffle(indices)
 

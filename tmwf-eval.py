@@ -321,7 +321,7 @@ class DataGenerator(object):
                             x.append([x_dire.tolist()[:max_len], x_time.tolist()[:max_len]])
                         else:
                             x.append(
-                                [x_dire.tolist() + [0] * (max_len - tlen), x_time.tolist() + [0] * (max_len - tlen)])
+                                [x_dire.tolist() + [0] * (max_len - tlen - 1), x_time.tolist() + [0] * (max_len - tlen - 1)])
                     else:
                         if tlen >= max_len:
                             x.append(x_dire.tolist()[:max_len])

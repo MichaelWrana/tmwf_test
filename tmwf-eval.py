@@ -306,7 +306,7 @@ class DataGenerator(object):
         #print(len(data['data'][0]))
 
         for data in data['data']:
-            if data == None:
+            if data == [None]:
                 print("NONE")
 
         while True:

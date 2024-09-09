@@ -336,7 +336,6 @@ def train_test(backbone, tab, page_dim, max_page, timestamp, train_ret, test_ret
     train_total = len(train_ret['data'])
     indices = np.arange(train_total)
     np.random.shuffle(indices)
-
     train_gen = DataGenerator(batch_size, page_dim, max_page, timestamp).generate(train_ret, indices)
 
     test_total = len(test_ret['data'])
@@ -410,6 +409,16 @@ def train_test(backbone, tab, page_dim, max_page, timestamp, train_ret, test_ret
         #overall_advanced_recall(prob_matrix, one_hot_matrix, cls_num)
         
 
+def match_len(data):
+    for i in range(len(data['data'])):
+        if len(data['data'][i]) >= 5120:
+            data['data'][i] = data['data'][i][:5120]
+            data['time'][i] = data['time'][i][:5120]
+        else:
+            data['data'][i] = data['data'][i] + np.asarray([0.0] * 5120 - len(data['data'][i]))
+            data['time'][i] = data['time'][i] + np.asarray([0.0] * 5120 - len(data['data'][i]))
+
+    return data
 
 cls_num = 51
 max_page = 3
@@ -423,5 +432,9 @@ with open('train_ret', 'rb') as f:
     
 with open('test_ret', 'rb') as f:
     test_ret = pickle.load(f)
+
+train_ret = match_len(train_ret)
+test_ret = match_len(test_ret)
+
 
 train_test(backbone='DFNet', tab=3, page_dim=page_len, max_page=max_page, timestamp=True, train_ret=train_ret, test_ret=test_ret)

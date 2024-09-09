@@ -320,20 +320,13 @@ class DataGenerator(object):
                         if tlen >= max_len:
                             x.append([x_dire.tolist()[:max_len], x_time.tolist()[:max_len]])
                         else:
-                            x.append(
-                                [x_dire.tolist() + [0] * (max_len - tlen), x_time.tolist() + [0] * (max_len - tlen)])
+                            x.append([x_dire.tolist() + [0] * (max_len - tlen), x_time.tolist() + [0] * (max_len - tlen)])
                     else:
                         if tlen >= max_len:
                             x.append(x_dire.tolist()[:max_len])
                         else:
                             x.append(x_dire.tolist() + [0] * (max_len - tlen))
                     y.append(data['label'][k])
-                
-                for smth in x:
-                    print(len(smth[0]))
-                    print(len(smth[1]))
-                    print(smth[0].dtype)
-                    print(smth[1].dtype)
 
                 yield np.array(x), np.array(y)
 
@@ -443,4 +436,4 @@ with open('test_ret', 'rb') as f:
     test_ret = pickle.load(f)
 
 
-train_test(backbone='DFNet', tab=3, page_dim=page_len, max_page=max_page, timestamp=True, train_ret=train_ret, test_ret=test_ret)
+train_test(backbone='DFNet', tab=3, page_dim=page_len, max_page=max_page, timestamp=False, train_ret=train_ret, test_ret=test_ret)

@@ -305,6 +305,10 @@ class DataGenerator(object):
         #print(len(data['data']))
         #print(len(data['data'][0]))
 
+        for data in data['data']:
+            if data == None:
+                print("NONE")
+
         while True:
             for i in range(imax):
                 x = []
@@ -313,8 +317,8 @@ class DataGenerator(object):
                     
                     print(len(data['data']))
                     print(len(data['data'][0]))
-                    print(len(data['data'][39134]))
                     print(data['data'][39134])
+                    print(len(data['data'][39134]))
                     print(k)
 
                     tlen = len(data['data'][k])
